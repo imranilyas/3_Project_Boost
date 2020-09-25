@@ -20,16 +20,26 @@ public class Rocket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ThrusterInput();
-        RotationInput();
+        Thrust();
+        Rotation();
     }
-
-    private void ThrusterInput()
+    void OnCollisionEnter(Collision collision)
+    {
+        switch (collision.gameObject.tag)
+        {
+            case "Friendly":
+                print("Safe");
+                break;
+            default:
+                print("Dead");
+                break;
+        }
+    }
+    private void Thrust()
     {
         if (Input.GetKey(KeyCode.Space))
         {
             rigidBody.AddRelativeForce(Vector3.up * mainThrust);
-            print("Spacebar");
             if (!audio.isPlaying)
             {
                 audio.Play(0);
@@ -40,7 +50,7 @@ public class Rocket : MonoBehaviour
             audio.Stop();
         }
     }
-    private void RotationInput()
+    private void Rotation()
     {
         rigidBody.freezeRotation = true;
         float rotationThisFrame = Time.deltaTime * rcsThrust;
@@ -48,12 +58,10 @@ public class Rocket : MonoBehaviour
         if ((Input.GetKey(KeyCode.A) == true) && (Input.GetKey(KeyCode.D) == false))
         {
             transform.Rotate(Vector3.forward * rotationThisFrame);
-            print("Rotating Left");
         }
         if ((Input.GetKey(KeyCode.D) == true) && (Input.GetKey(KeyCode.A) == false))
         {
             transform.Rotate(Vector3.back * rotationThisFrame);
-            print("Rotating Right");
         }
         rigidBody.freezeRotation = false;
     }
