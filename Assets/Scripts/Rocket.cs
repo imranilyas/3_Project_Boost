@@ -11,6 +11,9 @@ public class Rocket : MonoBehaviour
     Rigidbody rigidBody;
     AudioSource audio;
 
+    enum GameState { Alive, Dying, Transition};
+    GameState state = GameState.Alive;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,8 +24,11 @@ public class Rocket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Thrust();
-        Rotation();
+        if (state == GameState.Alive)
+        {
+            Thrust();
+            Rotation();
+        }
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -32,7 +38,8 @@ public class Rocket : MonoBehaviour
                 break;
             case "Finish":
                 print("Level Cleared");
-                SceneManager.LoadScene(1);
+                state = GameState.Transition;
+                Invoke("LoadNextScene", 1f);
                 break;
             default:
                 print("Game Over");
@@ -40,6 +47,12 @@ public class Rocket : MonoBehaviour
                 break;
         }
     }
+
+    private void LoadNextScene()
+    {
+        SceneManager.LoadScene(1);
+    }
+
     private void Thrust()
     {
         if (Input.GetKey(KeyCode.Space))
