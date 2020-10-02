@@ -8,10 +8,16 @@ public class Rocket : MonoBehaviour
 {
     [SerializeField] float rcsThrust = 100f;
     [SerializeField] float mainThrust = 100f;
+
+    //Audio for different states
     [SerializeField] AudioClip mainEngine;
     [SerializeField] AudioClip clearLevel;
     [SerializeField] AudioClip gameOver;
 
+    //ParticleSystem for different states
+    [SerializeField] ParticleSystem mainEngineParticles;
+    [SerializeField] ParticleSystem clearLevelParticles;
+    [SerializeField] ParticleSystem gameOverParticles;
 
     Rigidbody rigidBody;
     AudioSource audio;
@@ -48,12 +54,14 @@ public class Rocket : MonoBehaviour
             case "Finish":
                 print("Level Cleared");
                 audio.PlayOneShot(clearLevel);
+                clearLevelParticles.Play();
                 state = GameState.Transition;
-                Invoke("LoadNextScene", 1f);
+                Invoke("LoadNextScene", 1.5f);
                 break;
             default:
                 print("Game Over");
                 audio.PlayOneShot(gameOver);
+                gameOverParticles.Play();
                 state = GameState.Dying;
                 Invoke("LoadNextScene", 1f);
                 break;
@@ -64,10 +72,12 @@ public class Rocket : MonoBehaviour
     {
         if (state == GameState.Dying)
         {
+            //gameOverParticles.Stop();
             SceneManager.LoadScene(0);
         }
         else if (state == GameState.Transition)
         {
+            //clearLevelParticles.Stop();
             SceneManager.LoadScene(1);
         }
     }
@@ -81,6 +91,7 @@ public class Rocket : MonoBehaviour
         else
         {
             audio.Stop();
+            mainEngineParticles.Stop();
         }
     }
 
@@ -91,6 +102,7 @@ public class Rocket : MonoBehaviour
         {
             audio.PlayOneShot(mainEngine);
         }
+        mainEngineParticles.Play();
     }
 
     private void RespondToRotation()
