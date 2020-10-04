@@ -351,7 +351,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rcsThrust: 220
-  mainThrust: 60
+  mainThrust: 4200
   mainEngine: {fileID: 8300000, guid: 97cfcb16b1af10d4990a156ae63f7176, type: 3}
   clearLevel: {fileID: 8300000, guid: 7ab4b10a34a02394393b597dbebc7c3b, type: 3}
   gameOver: {fileID: 8300000, guid: 428919b6b72644c40b90f4cd0e1e50d4, type: 3}
