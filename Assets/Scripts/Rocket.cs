@@ -8,6 +8,7 @@ public class Rocket : MonoBehaviour
 {
     [SerializeField] float rcsThrust = 100f;
     [SerializeField] float mainThrust = 100f;
+    [SerializeField] float levelLoadDelay = 2f;
 
     //Audio for different states
     [SerializeField] AudioClip mainEngine;
@@ -56,14 +57,14 @@ public class Rocket : MonoBehaviour
                 audio.PlayOneShot(clearLevel);
                 clearLevelParticles.Play();
                 state = GameState.Transition;
-                Invoke("LoadNextScene", 1.5f);
+                Invoke("LoadNextScene", levelLoadDelay);
                 break;
             default:
                 print("Game Over");
                 audio.PlayOneShot(gameOver);
                 gameOverParticles.Play();
                 state = GameState.Dying;
-                Invoke("LoadNextScene", 1f);
+                Invoke("LoadNextScene", levelLoadDelay);
                 break;
         }
     }
@@ -72,12 +73,10 @@ public class Rocket : MonoBehaviour
     {
         if (state == GameState.Dying)
         {
-            //gameOverParticles.Stop();
             SceneManager.LoadScene(0);
         }
         else if (state == GameState.Transition)
         {
-            //clearLevelParticles.Stop();
             SceneManager.LoadScene(1);
         }
     }
