@@ -10,12 +10,12 @@ public class Rocket : MonoBehaviour
     [SerializeField] float mainThrust = 100f;
     [SerializeField] float levelLoadDelay = 2f;
 
-    //Audio for different states
+    // Audio for different states
     [SerializeField] AudioClip mainEngine;
     [SerializeField] AudioClip clearLevel;
     [SerializeField] AudioClip gameOver;
 
-    //ParticleSystem for different states
+    // ParticleSystem for different states
     [SerializeField] ParticleSystem mainEngineParticles;
     [SerializeField] ParticleSystem clearLevelParticles;
     [SerializeField] ParticleSystem gameOverParticles;
@@ -25,6 +25,10 @@ public class Rocket : MonoBehaviour
 
     enum GameState { Alive, Dying, Transition};
     GameState state = GameState.Alive;
+
+    // Counters for keycommands
+    int index = 0;
+    bool trigger = true;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +44,29 @@ public class Rocket : MonoBehaviour
         {
             RespondToThrust();
             RespondToRotation();
+        }
+
+        // key command for loading next scene
+        if (Input.GetKey(KeyCode.L))
+        {
+            state = GameState.Transition;
+            print("Skip Level");
+            LoadNextScene();
+        }
+
+        // turn off/on collision detection
+        if (Input.GetKey(KeyCode.C))
+        {
+            if (trigger == true)
+            {
+                rigidBody.detectCollisions = false;
+                trigger = false;
+            }
+            else
+            {
+                rigidBody.detectCollisions = true;
+                trigger = true;
+            }
         }
     }
     void OnCollisionEnter(Collision collision)
@@ -73,12 +100,15 @@ public class Rocket : MonoBehaviour
     {
         if (state == GameState.Dying)
         {
-            SceneManager.LoadScene(0);
+            index = 0;
+            SceneManager.LoadScene(index);
         }
         else if (state == GameState.Transition)
         {
-            SceneManager.LoadScene(1);
+            index++;
+            SceneManager.LoadScene(index);
         }
+        print(index);
     }
 
     private void RespondToThrust()
