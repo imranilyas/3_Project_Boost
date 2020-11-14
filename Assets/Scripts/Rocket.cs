@@ -27,7 +27,6 @@ public class Rocket : MonoBehaviour
     GameState state = GameState.Alive;
 
     // Counters for keycommands
-    int index = 0;
     bool trigger = true;
 
     // Start is called before the first frame update
@@ -47,15 +46,14 @@ public class Rocket : MonoBehaviour
         }
 
         // key command for loading next scene
-        if (Input.GetKey(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.L))
         {
-            state = GameState.Transition;
             print("Skip Level");
             LoadNextScene();
         }
 
         // turn off/on collision detection
-        if (Input.GetKey(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             if (trigger == true)
             {
@@ -91,24 +89,30 @@ public class Rocket : MonoBehaviour
                 audio.PlayOneShot(gameOver);
                 gameOverParticles.Play();
                 state = GameState.Dying;
-                Invoke("LoadNextScene", levelLoadDelay);
+                Invoke("LoadFirstScene", levelLoadDelay);
                 break;
         }
     }
 
+    private void LoadFirstScene()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     private void LoadNextScene()
     {
-        if (state == GameState.Dying)
+        int currentScene = SceneManager.GetActiveScene().buildIndex;
+        int lastScene = SceneManager.sceneCountInBuildSettings - 1;
+        currentScene++;
+        if (currentScene >= lastScene)
         {
-            index = 0;
-            SceneManager.LoadScene(index);
+            // repeats last scene
+            SceneManager.LoadScene(lastScene);
         }
-        else if (state == GameState.Transition)
+        else
         {
-            index++;
-            SceneManager.LoadScene(index);
+            SceneManager.LoadScene(currentScene);
         }
-        print(index);
     }
 
     private void RespondToThrust()
