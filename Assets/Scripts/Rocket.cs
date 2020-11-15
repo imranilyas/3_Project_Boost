@@ -102,12 +102,12 @@ public class Rocket : MonoBehaviour
     private void LoadNextScene()
     {
         int currentScene = SceneManager.GetActiveScene().buildIndex;
-        int lastScene = SceneManager.sceneCountInBuildSettings - 1;
+        int lastScene = SceneManager.sceneCountInBuildSettings;
         currentScene++;
-        if (currentScene >= lastScene)
+        if (currentScene == lastScene)
         {
             // repeats last scene
-            SceneManager.LoadScene(lastScene);
+            LoadFirstScene();
         }
         else
         {
@@ -140,17 +140,16 @@ public class Rocket : MonoBehaviour
 
     private void RespondToRotation()
     {
-        rigidBody.freezeRotation = true;
+        rigidBody.angularVelocity = Vector3.zero; // remove rotation to fix rotation
         float rotationThisFrame = Time.deltaTime * rcsThrust;
 
-        if ((Input.GetKey(KeyCode.A) == true) && (Input.GetKey(KeyCode.D) == false))
+        if (Input.GetKey(KeyCode.A))
         {
             transform.Rotate(Vector3.forward * rotationThisFrame);
         }
-        if ((Input.GetKey(KeyCode.D) == true) && (Input.GetKey(KeyCode.A) == false))
+        else if (Input.GetKey(KeyCode.D))
         {
             transform.Rotate(Vector3.back * rotationThisFrame);
         }
-        rigidBody.freezeRotation = false;
     }
 }
