@@ -349,6 +349,9 @@ MonoBehaviour:
   movementVector: {x: 0, y: 5, z: 0}
   movementFactor: 0
   period: 2
+  xAngle: 0
+  yAngle: 0
+  zAngle: 0
 --- !u!1001 &887020524
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -572,6 +575,9 @@ MonoBehaviour:
   movementVector: {x: 28, y: 0, z: 0}
   movementFactor: 0.45
   period: 4
+  xAngle: 0
+  yAngle: 0
+  zAngle: 0
 --- !u!1 &1975095159
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,12 +1151,12 @@ PrefabInstance:
     - target: {fileID: 4531547395566363301, guid: d048f17c3862b1a4cbae47f171009094,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 4531547395566363301, guid: d048f17c3862b1a4cbae47f171009094,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 44.1
+      value: 44
       objectReference: {fileID: 0}
     - target: {fileID: 4531547395566363301, guid: d048f17c3862b1a4cbae47f171009094,
         type: 3}
@@ -1191,6 +1197,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4531547395566363301, guid: d048f17c3862b1a4cbae47f171009094,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 9.632637
+      objectReference: {fileID: 0}
+    - target: {fileID: 4531547395566363301, guid: d048f17c3862b1a4cbae47f171009094,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 15.468187
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d048f17c3862b1a4cbae47f171009094, type: 3}

@@ -12,6 +12,9 @@ public class Oscillator : MonoBehaviour
 
     Vector3 startingPos;
 
+    //rotation
+    public float xAngle, yAngle, zAngle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,5 +34,7 @@ public class Oscillator : MonoBehaviour
 
         Vector3 offset = movementVector * movementFactor;
         transform.position = startingPos + offset;
+
+        transform.Rotate(xAngle, yAngle, zAngle, Space.Self);
     }
 }
