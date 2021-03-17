@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ using UnityEngine;
 public class Oscillator : MonoBehaviour
 {
     [SerializeField] Vector3 movementVector = new Vector3(10f, 10f, 10f);
-    [Range(-1,1)][SerializeField] float movementFactor;
+    [Range(-1,1)] float movementFactor;
 
     [SerializeField] float period = 2f;
 
@@ -14,10 +15,6 @@ public class Oscillator : MonoBehaviour
 
     //rotation
     public float xAngle, yAngle, zAngle;
-
-    //timedelay
-    public bool delay;
-    [Range(-1, 1)] float pauseAt;
 
     // Start is called before the first frame update
     void Start()
@@ -40,9 +37,5 @@ public class Oscillator : MonoBehaviour
         transform.position = startingPos + offset;
 
         transform.Rotate(xAngle, yAngle, zAngle, Space.Self);
-
-        if (delay) {
-                
-        }
     }
 }
