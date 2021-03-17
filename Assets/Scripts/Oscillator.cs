@@ -15,6 +15,10 @@ public class Oscillator : MonoBehaviour
     //rotation
     public float xAngle, yAngle, zAngle;
 
+    //timedelay
+    public bool delay;
+    [Range(-1, 1)] float pauseAt;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,5 +40,9 @@ public class Oscillator : MonoBehaviour
         transform.position = startingPos + offset;
 
         transform.Rotate(xAngle, yAngle, zAngle, Space.Self);
+
+        if (delay) {
+                
+        }
     }
 }
