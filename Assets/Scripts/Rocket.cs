@@ -15,6 +15,9 @@ public class Rocket : MonoBehaviour
     [SerializeField] AudioClip clearLevel;
     [SerializeField] AudioClip gameOver;
 
+    // Z-Position Rotation
+    public bool ZPosition;
+
     // ParticleSystem for different states
     [SerializeField] ParticleSystem mainEngineParticles;
     [SerializeField] ParticleSystem clearLevelParticles;
@@ -67,6 +70,7 @@ public class Rocket : MonoBehaviour
             }
         }
     }
+
     void OnCollisionEnter(Collision collision)
     {
         if (state != GameState.Alive)
@@ -150,6 +154,19 @@ public class Rocket : MonoBehaviour
         else if (Input.GetKey(KeyCode.D))
         {
             transform.Rotate(Vector3.back * rotationThisFrame);
+        }
+        if (ZPosition) { ZPositionRotation(rotationThisFrame); }
+    }
+
+    private void ZPositionRotation(float rotationThisFrame)
+    {
+        if (Input.GetKey(KeyCode.W))
+        {
+            transform.Rotate(Vector3.right * rotationThisFrame);
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            transform.Rotate(Vector3.left * rotationThisFrame);
         }
     }
 }
