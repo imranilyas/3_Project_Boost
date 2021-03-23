@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     public Transform target;
-    enum Axis { x, y, z, xy, xz, yz };
+    enum Axis { x, y, z, XY, XZ, YZ };
     [SerializeField] Axis direction;
     public Vector3 offset;
 
@@ -15,9 +15,9 @@ public class CameraFollow : MonoBehaviour
         if (direction == Axis.x) { FollowX(); }
         if (direction == Axis.y) { FollowY(); }
         if (direction == Axis.z) { FollowZ(); }
-        if (direction == Axis.xy) { FollowX(); FollowY(); }
-        if (direction == Axis.xz) { FollowX(); FollowZ(); }
-        if (direction == Axis.yz) { FollowY(); FollowZ(); }
+        if (direction == Axis.XY) { FollowX(); FollowY(); }
+        if (direction == Axis.XZ) { FollowX(); FollowZ(); }
+        if (direction == Axis.YZ) { FollowY(); FollowZ(); }
 
     }
 
